@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import scrolledtext
 
+timer_ids = []
+
 
 class DisappearingTextWritingApp(tk.Tk):
 
@@ -43,3 +45,21 @@ class DisappearingTextWritingApp(tk.Tk):
             pady=(10, 0),
             sticky=tk.EW
         )
+
+    def key_release(self, e):
+        timer_id = self.text_area.after(5000, self.remove_input)
+        timer_ids.append(timer_id)
+
+    def key_press(self, e):
+        for i_d in timer_ids:
+            self.text_area.after_cancel(i_d)
+            self.after_cancel(i_d)
+            self.main_frame.after_cancel(i_d)
+
+    def remove_input(self):
+        self.text_area.delete("1.0", tk.END)
+
+
+if __name__ == "__main__":
+    app = DisappearingTextWritingApp()
+    app.mainloop()
