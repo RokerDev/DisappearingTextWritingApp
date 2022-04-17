@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import scrolledtext
 
+TIME_TO_DELETE_TEXT = 5000  # 1 sec = 1000
 timer_ids = []
 
 
@@ -47,7 +48,7 @@ class DisappearingTextWritingApp(tk.Tk):
         )
 
     def key_release(self, e):
-        timer_id = self.text_area.after(5000, self.remove_input)
+        timer_id = self.text_area.after(TIME_TO_DELETE_TEXT, self.remove_input)
         timer_ids.append(timer_id)
 
     def key_press(self, e):
